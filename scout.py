@@ -27,6 +27,7 @@ API_URL = "https://www.comedycellar.com/lineup/api/"
 HERE = Path(__file__).resolve().parent
 OUT_PATH = HERE / "scout_data.json"
 CONFIG_PATH = HERE / "config.json"
+LINKS_PATH = HERE / "comic_links.json"
 
 # How many days ahead to scan. Comedy Cellar posts lineups Thursday-ish for the
 # coming weekend, so most far-out dates will simply be empty.
@@ -247,6 +248,122 @@ def fallback_scores(shows: list[dict]) -> list[dict]:
     } for _ in shows]
 
 
+# ---------- Comic web-property links -----------------------------------------
+# Each comic chip in the viewer links to that comic's best web property, in
+# priority order: Instagram > YouTube > TikTok > personal website. We resolve
+# links with Claude's web-search tool so they're identity-verified (the right
+# NYC Comedy Cellar performer, not a same-named stranger), and cache them in
+# comic_links.json. Any new comic — added to the taste list or appearing in a
+# scraped lineup — gets resolved automatically on the next run.
+
+LINK_SYSTEM_PROMPT = """\
+You find the single best official web property for one specific working stand-up
+comedian who performs at New York's Comedy Cellar (117 MacDougal Street). Because
+this person is a confirmed Comedy Cellar performer, an account almost always exists
+— your job is to find it and return the best one. Use web search to look for their
+comedy presence: stand-up clips, a comedy bio, tour dates, Comedy Cellar / NYC
+comedy mentions, lineup listings.
+
+Pick ONE URL in strict priority order — use the highest that exists and shows
+genuine comedy activity for this comedian:
+  1. Instagram
+  2. YouTube channel
+  3. TikTok
+  4. personal website
+
+Identity: names sometimes collide. Choose the candidate whose content clearly shows
+THIS person doing stand-up comedy. Prefer the account with comedy signal. Only
+return null if EVERY candidate you find plainly belongs to an unrelated person (a
+different profession or city with zero comedy connection) — do not return null
+merely because verification is imperfect. When two comedy candidates exist, pick the
+more active / higher-following one.
+
+Respond with ONLY a compact JSON object and nothing else:
+  {"url": "https://..."}    the best match you found, or
+  {"url": null}             only if no candidate has any comedy connection."""
+
+
+def load_comic_links() -> tuple[dict, str]:
+    """Read comic_links.json -> (name->url dict, _comment string)."""
+    if LINKS_PATH.exists():
+        try:
+            data = json.loads(LINKS_PATH.read_text())
+            return dict(data.get("links", {})), data.get("_comment", "")
+        except Exception as e:
+            print(f"  ! Could not read comic links: {e}", file=sys.stderr)
+    return {}, ""
+
+
+def _resolve_one_link(name: str, client) -> str | None:
+    """One Claude call (with web search) to find a verified best URL."""
+    msg = client.messages.create(
+        model=CLAUDE_MODEL,
+        max_tokens=1024,
+        system=LINK_SYSTEM_PROMPT,
+        tools=[{"type": "web_search_20250305", "name": "web_search",
+                "max_uses": 5}],
+        messages=[{
+            "role": "user",
+            "content": f"Comedian: {name} — performs stand-up at the Comedy "
+                       f"Cellar in New York City.",
+        }],
+    )
+    # The model emits search/tool blocks; the final text block holds the JSON.
+    text = ""
+    for block in msg.content:
+        if getattr(block, "type", None) == "text":
+            text = block.text
+    text = re.sub(r"^```(?:json)?|```$", "", text.strip(), flags=re.M).strip()
+    try:
+        url = json.loads(text).get("url")
+    except Exception:
+        m = re.search(r'https?://[^\s"\']+', text)
+        url = m.group(0) if m else None
+    if url and isinstance(url, str) and url.startswith("http"):
+        return url.strip()
+    return None
+
+
+def resolve_comic_links(names: set[str], links: dict) -> dict:
+    """Fill links for any names not already cached. Returns the updated dict."""
+    missing = sorted({n for n in names if n and n not in links})
+    if not missing:
+        return links
+    if not os.environ.get("ANTHROPIC_API_KEY"):
+        print(f"  ! {len(missing)} comic(s) need links but ANTHROPIC_API_KEY "
+              f"is unset — skipping link lookup.", file=sys.stderr)
+        return links
+
+    import anthropic  # lazy import so --no-ai stays dependency-free
+    client = anthropic.Anthropic()
+    print(f"Resolving web links for {len(missing)} new comic(s)...")
+    for name in missing:
+        try:
+            url = _resolve_one_link(name, client)
+        except Exception as e:
+            print(f"  ! link lookup failed for {name}: {e}", file=sys.stderr)
+            continue
+        if url:
+            links[name] = url
+            print(f"  + {name} -> {url}")
+        else:
+            print(f"  · no verified link found for {name} (will retry next run)")
+        time.sleep(0.3)
+    return links
+
+
+def write_comic_links(links: dict, comment: str) -> None:
+    payload = {
+        "_comment": comment or (
+            "Verified best web property per comic, priority Instagram > YouTube "
+            "> TikTok > website. Auto-resolved and identity-checked by scout.py "
+            "via web search. Names without a confident match are retried each run."
+        ),
+        "links": dict(sorted(links.items())),
+    }
+    LINKS_PATH.write_text(json.dumps(payload, indent=2) + "\n")
+
+
 # ---------- Main -------------------------------------------------------------
 
 def main():
@@ -354,6 +471,22 @@ def main():
         except Exception as e:
             print(f"  ! Could not merge prior data: {e}", file=sys.stderr)
     merged.sort(key=lambda s: (s["date"], time_to_minutes(s["time"])))
+
+    # Resolve web-property links for every comic on the bills plus the taste
+    # list, caching new ones. Skipped entirely in --no-ai mode.
+    if not args.no_ai:
+        comic_names = set(taste)
+        for s in merged:
+            for c in s.get("comedians", []):
+                if c.get("name"):
+                    comic_names.add(c["name"])
+        links, links_comment = load_comic_links()
+        before = len(links)
+        links = resolve_comic_links(comic_names, links)
+        if len(links) != before or not LINKS_PATH.exists():
+            write_comic_links(links, links_comment)
+            print(f"Comic links: {len(links)} cached "
+                  f"(+{len(links) - before} new).")
 
     payload = {
         "generated_at": dt.datetime.now().isoformat(timespec="seconds"),

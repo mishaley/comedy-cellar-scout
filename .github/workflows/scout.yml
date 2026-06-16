@@ -45,9 +45,9 @@ jobs:
         run: |
           git config user.name  "scout-bot"
           git config user.email "scout-bot@users.noreply.github.com"
-          if ! git diff --quiet -- scout_data.json; then
-            git add scout_data.json
-            git commit -m "Refresh lineup data [skip ci]"
+          if ! git diff --quiet -- scout_data.json comic_links.json; then
+            git add scout_data.json comic_links.json
+            git commit -m "Refresh lineup data + comic links [skip ci]"
             git push
           else
             echo "No data changes."
