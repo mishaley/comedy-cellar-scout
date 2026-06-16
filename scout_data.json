@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-06-16T13:05:11",
+  "generated_at": "2026-06-16T13:09:50",
   "available_dates": [
     "2026-06-01",
     "2026-06-02",
@@ -77,7 +77,7 @@
       "drop_in": 3,
       "taste": 3,
       "crowd_work": 4,
-      "blurb": "Dave Attell headlines with his legendary loose, crowd-heavy style. Solid Tuesday early show but not a star-studded drop-in night\u2014come for Attell if you want front-row chaos."
+      "blurb": "Dave Attell headlines a solid Tuesday early show with strong club comics. Attell's a legend and known for crowd interaction, but it's a weeknight 7:30\u2014drop-in odds are modest."
     },
     {
       "id": "43913",
@@ -111,10 +111,10 @@
       ],
       "date": "2026-06-16",
       "weekday": "TUE",
-      "drop_in": 2,
+      "drop_in": 3,
       "taste": 3,
       "crowd_work": 3,
-      "blurb": "Ryan Hamilton brings clean, tight material but this Tuesday late show lacks the lineup firepower or weekend energy to draw major drop-ins. Solid, not spectacular."
+      "blurb": "Ryan Hamilton brings clean, sharp material to anchor a workmanlike Tuesday late show. Solid but not spectacular\u2014Gregg Rogell and Greer Barnes are reliable pros without being must-sees."
     },
     {
       "id": "43915",
@@ -148,10 +148,10 @@
       ],
       "date": "2026-06-17",
       "weekday": "WED",
-      "drop_in": 3,
+      "drop_in": 4,
       "taste": 4,
       "crowd_work": 4,
-      "blurb": "Colin Quinn is a Cellar legend and Wednesday 7:30 can pull surprises\u2014his storytelling and crowd riffs alone make this worth it. Pete Lee and Lenny Marcus add reliable punch."
+      "blurb": "Colin Quinn headlines Wednesday early\u2014NYC royalty with sharp storytelling and frequent crowd engagement. Worth showing up for Quinn alone; the supporting cast is strong too."
     },
     {
       "id": "43916",
@@ -185,10 +185,10 @@
       ],
       "date": "2026-06-17",
       "weekday": "WED",
-      "drop_in": 2,
+      "drop_in": 3,
       "taste": 3,
       "crowd_work": 3,
-      "blurb": "Ian Fidance and Greer Barnes bring energy, but this Wednesday late show is a mid-week grind with no obvious drop-in magnet. Fine lineup, nothing urgent."
+      "blurb": "Greer Barnes closes out a Wednesday late show heavy on alt/podcast energy (Ian Fidance, SNL writer KC Shornima). Eclectic lineup that could go anywhere but lacks a major taste match."
     }
   ]
 }
