@@ -84,3 +84,19 @@ jobs:
 
       - name: Deploy to GitHub Pages
         uses: actions/deploy-pages@v4
+
+      # Only fires if an earlier step failed. Pings WhatsApp so a silent
+      # breakage (scraper change, token expiry, API outage) doesn't just
+      # quietly stop the alerts. This is the "unless I have to" notification.
+      - name: Notify on failure (WhatsApp)
+        if: failure()
+        env:
+          CALLMEBOT_PHONE: ${{ secrets.CALLMEBOT_PHONE }}
+          CALLMEBOT_APIKEY: ${{ secrets.CALLMEBOT_APIKEY }}
+        run: |
+          RUN_URL="${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"
+          TEXT="⚠️ Comedy Cellar Scout scan FAILED. No lineups were checked this run. Logs: ${RUN_URL}"
+          curl -s -G "https://api.callmebot.com/whatsapp.php" \
+            --data-urlencode "phone=${CALLMEBOT_PHONE}" \
+            --data-urlencode "apikey=${CALLMEBOT_APIKEY}" \
+            --data-urlencode "text=${TEXT}" || true
