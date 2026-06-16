@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-06-16T13:09:50",
+  "generated_at": "2026-06-16T13:20:02",
   "available_dates": [
     "2026-06-01",
     "2026-06-02",
@@ -77,7 +77,7 @@
       "drop_in": 3,
       "taste": 3,
       "crowd_work": 4,
-      "blurb": "Dave Attell headlines a solid Tuesday early show with strong club comics. Attell's a legend and known for crowd interaction, but it's a weeknight 7:30\u2014drop-in odds are modest."
+      "blurb": "Dave Attell headlining is a solid draw and he'll work the room hard, but this is a Tuesday early show with a mixed veteran lineup\u2014not prime drop-in territory."
     },
     {
       "id": "43913",
@@ -111,10 +111,10 @@
       ],
       "date": "2026-06-16",
       "weekday": "TUE",
-      "drop_in": 3,
+      "drop_in": 2,
       "taste": 3,
       "crowd_work": 3,
-      "blurb": "Ryan Hamilton brings clean, sharp material to anchor a workmanlike Tuesday late show. Solid but not spectacular\u2014Gregg Rogell and Greer Barnes are reliable pros without being must-sees."
+      "blurb": "Ryan Hamilton is clean and polished, Gregg Rogell brings the Cellar pedigree, but Tuesday late show with this roster won't pull surprises."
     },
     {
       "id": "43915",
@@ -151,7 +151,7 @@
       "drop_in": 4,
       "taste": 4,
       "crowd_work": 4,
-      "blurb": "Colin Quinn headlines Wednesday early\u2014NYC royalty with sharp storytelling and frequent crowd engagement. Worth showing up for Quinn alone; the supporting cast is strong too."
+      "blurb": "Colin Quinn is a legitimate name and Wednesday night ups the odds\u2014this one's worth showing up for, especially if you want sharp NYC sensibility and probable audience interaction."
     },
     {
       "id": "43916",
@@ -187,8 +187,8 @@
       "weekday": "WED",
       "drop_in": 3,
       "taste": 3,
-      "crowd_work": 3,
-      "blurb": "Greer Barnes closes out a Wednesday late show heavy on alt/podcast energy (Ian Fidance, SNL writer KC Shornima). Eclectic lineup that could go anywhere but lacks a major taste match."
+      "crowd_work": 4,
+      "blurb": "Ian Fidance and Greer Barnes bring energy and crowd engagement, but Wednesday late show lacks the stacked A-list firepower that guarantees a major walk-in."
     }
   ]
 }
