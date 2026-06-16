@@ -47,6 +47,7 @@ TASTE_BENCHMARK = [
     "Sam Morril",
     "Jeff Arcuri",
     "Mark Normand",
+    "Tom Cotter",
 ]
 
 # Stained-glass header image. Drop a file at ./header.jpg to use it; otherwise
