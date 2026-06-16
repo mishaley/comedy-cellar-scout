@@ -483,8 +483,22 @@ STANDOUT_THRESHOLD = 3.5  # keep in sync with the HTML viewer
 CALLMEBOT_URL = "https://api.callmebot.com/whatsapp.php"
 
 
-def _show_avg(s: dict) -> float:
-    return (s.get("drop_in", 0) + s.get("taste", 0) + s.get("crowd_work", 0)) / 3
+# What makes a great Cellar night, in priority order: crowd work first, an
+# A-list drop-in next, taste as a guide. Weights sum to 1 so the score stays
+# on the 1-5 scale. Keep in sync with SCORE_WEIGHTS in the HTML viewer.
+SCORE_WEIGHTS = {"crowd_work": 0.5, "drop_in": 0.3, "taste": 0.2}
+# Crowd work is the top priority, so a strong crowd-work score alone qualifies
+# a night even if the weighted total just misses. Keep in sync with the viewer.
+CROWD_FLOOR = 4
+
+
+def weighted_score(s: dict) -> float:
+    return sum(s.get(k, 0) * w for k, w in SCORE_WEIGHTS.items())
+
+
+def is_standout(s: dict) -> bool:
+    return (weighted_score(s) >= STANDOUT_THRESHOLD
+            or s.get("crowd_work", 0) >= CROWD_FLOOR)
 
 
 def load_alerted() -> set[str]:
@@ -518,8 +532,8 @@ def _alert_text(s: dict) -> str:
         f"🎤 Standout at the Comedy Cellar!\n"
         f"{when}\n"
         f"{who}\n"
-        f"A-list {s.get('drop_in', 0)} · Taste {s.get('taste', 0)} · "
-        f"Crowd {s.get('crowd_work', 0)}\n"
+        f"Crowd {s.get('crowd_work', 0)} · A-list {s.get('drop_in', 0)} · "
+        f"Taste {s.get('taste', 0)}\n"
         f"{avail}\n"
         f"Book: {RESV_PAGE_URL}"
     )
@@ -552,7 +566,7 @@ def notify_standouts(shows: list[dict]) -> None:
             continue
         if s.get("date", "") < today:
             continue
-        if _show_avg(s) < STANDOUT_THRESHOLD:
+        if not is_standout(s):
             continue
         if s.get("sold_out") is True:          # only ping while bookable
             continue

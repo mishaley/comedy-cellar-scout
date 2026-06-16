@@ -278,6 +278,22 @@
 const OWNER = "mishaley", REPO = "comedy-cellar-scout", BRANCH = "main";
 const CONFIG_FILE = "config.json";
 const STANDOUT_THRESHOLD = 3.5;
+// Priority for what makes a great Cellar night: crowd work first, an A-list
+// drop-in next, taste as a guide. Weights sum to 1 so the score stays on the
+// 1-5 scale. Keep in sync with weighted_score() in scout.py.
+const SCORE_WEIGHTS = { crowd_work: 0.5, drop_in: 0.3, taste: 0.2 };
+// Crowd work is the top priority, so a strong crowd-work score alone makes a
+// night worth flagging even if the weighted total just misses. Keep in sync
+// with scout.py.
+const CROWD_FLOOR = 4;
+function weightedScore(s){
+  return (s.crowd_work||0)*SCORE_WEIGHTS.crowd_work
+       + (s.drop_in||0)*SCORE_WEIGHTS.drop_in
+       + (s.taste||0)*SCORE_WEIGHTS.taste;
+}
+function isStandout(s){
+  return weightedScore(s) >= STANDOUT_THRESHOLD || (s.crowd_work||0) >= CROWD_FLOOR;
+}
 
 const LS_WORKING = "ccscout_working";  // {dates:[], taste:[]}
 const LS_TOKEN = "ccscout_token";
@@ -401,27 +417,45 @@ function renderShows() {
   const soldCount = upcoming.filter(s => s.sold_out === true).length;
   const shows = upcoming
     .filter(s => showSold || s.sold_out !== true)   // hide sold-out unless toggled on
-    .map(s => ({...s, avg: ((s.drop_in||0)+(s.taste||0)+(s.crowd_work||0))/3}));
-  const standout = shows.filter(s => s.avg >= STANDOUT_THRESHOLD);
-  const other = shows.filter(s => s.avg < STANDOUT_THRESHOLD);
+    .map(s => ({...s, score: weightedScore(s)}))
+    .sort((a,b) => b.score - a.score);              // strongest first
+  let standout = shows.filter(isStandout);
+  let other = shows.filter(s => !isStandout(s));
+
+  // Don't let perfect be the enemy of good: if nothing clears the bar, promote
+  // the single best bookable upcoming night as a "best bet" so there's always
+  // a concrete night to commit to.
+  let bestBet = null;
+  if (standout.length === 0) {
+    bestBet = shows.find(s => s.sold_out !== true) || null;
+    if (bestBet) other = other.filter(s => s !== bestBet);
+  }
 
   const hiddenNote = (!showSold && soldCount)
     ? `<span class="sub">${soldCount} sold-out show${soldCount===1?"":"s"} hidden — tick “Show sold-out” to see ${soldCount===1?"it":"them"}.</span>`
     : "";
   const status = document.getElementById("status");
-  if (standout.length === 0) {
-    status.innerHTML = `No standout shows on your upcoming dates yet
-      <span class="sub">The scan flags anything strong the moment lineups post — typically Thursday evenings.</span>${hiddenNote}`;
-  } else {
+  if (standout.length) {
     status.innerHTML = `${standout.length} standout show${standout.length===1?"":"s"} flagged${hiddenNote}`;
+  } else if (bestBet) {
+    status.innerHTML = `Best bet on your dates
+      <span class="sub">Nothing has cleared the bar yet — here's the strongest bookable night so far. New lineups post Thursday-ish.</span>${hiddenNote}`;
+  } else {
+    status.innerHTML = `No bookable shows on your upcoming dates yet
+      <span class="sub">The scan flags anything strong the moment lineups post — typically Thursday evenings.</span>${hiddenNote}`;
   }
-  document.getElementById("standout-cards").innerHTML = standout.map(s=>card(s,true)).join("");
-  document.getElementById("other-cards").innerHTML = other.map(s=>card(s,false)).join("");
+  document.getElementById("standout-cards").innerHTML =
+    (bestBet ? card(bestBet,"best") : "") + standout.map(s=>card(s,"standout")).join("");
+  document.getElementById("other-cards").innerHTML = other.map(s=>card(s,"other")).join("");
   document.getElementById("other-divider").style.display = other.length ? "block":"none";
 }
 
 const RESV_URL = "https://www.comedycellar.com/reservations-newyork/";
-function card(s, isStandout) {
+function card(s, kind) {            // kind: "standout" | "best" | "other"
+  const featured = kind === "standout" || kind === "best";
+  const tag = kind === "standout" ? "STANDOUT"
+            : kind === "best"     ? "BEST BET"
+            :                       "BELOW THRESHOLD";
   const dateLabel = `${s.weekday||""} ${prettyShort(s.date)}`.trim().toUpperCase();
   const chips = (s.comedians||[]).map(c=>`<span class="chip2">${comicNameHtml(c.name)}</span>`).join("");
   // Availability (from the live reservation system). Absent = not checked yet.
@@ -435,17 +469,17 @@ function card(s, isStandout) {
       avail = `<div class="avail low">Almost sold out · ${seats} seat${seats===1?"":"s"} left</div>`;
     else if (s.sold_out === false)
       avail = `<div class="avail ok">Seats available</div>`;
-    book = `<a class="book" href="${RESV_URL}" target="_blank" rel="noopener">${isStandout?"Book →":"Book anyway →"}</a>`;
+    book = `<a class="book" href="${RESV_URL}" target="_blank" rel="noopener">${featured?"Book →":"Book anyway →"}</a>`;
   }
-  return `<div class="card ${isStandout?"standout":""} ${s.sold_out===true?"sold":""}">
-    <div class="tag">${isStandout?"STANDOUT":"BELOW THRESHOLD"}</div>
+  return `<div class="card ${featured?"standout":""} ${s.sold_out===true?"sold":""}">
+    <div class="tag">${tag}</div>
     <div class="date">${dateLabel}</div>
     <div class="time">${escapeHtml(s.time||"")}</div>
     <div class="room">${escapeHtml(s.room||"")}</div>
     <div class="chips2">${chips}</div>
     <div class="blurb">${escapeHtml(s.blurb||"")}</div>
     <div class="scores">
-      ${box("A-LIST",s.drop_in)}${box("TASTE",s.taste)}${box("CROWD WORK",s.crowd_work)}
+      ${box("CROWD WORK",s.crowd_work)}${box("A-LIST",s.drop_in)}${box("TASTE",s.taste)}
     </div>
     ${avail}
     ${book}
