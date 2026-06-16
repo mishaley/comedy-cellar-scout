@@ -154,6 +154,13 @@
   .score.hot .val { color: var(--accent); }
   .book { display:block; margin-top: 11px; text-align: center; background:#d9d6cd; color:#555; border-radius:6px; padding:8px; font-size:13px; text-decoration:none; }
   .card.standout .book { background:#1a1a1a; color:#fff; }
+  .book.soldout { background:#ede3e1; color:#b03a2e; cursor:default; font-weight:600; }
+  .card.standout .book.soldout { background:#f4dedb; color:#b03a2e; }
+  .avail { margin-top: 9px; font-size: 11px; font-weight: 600; text-align: center; }
+  .avail.sold { color:#b03a2e; }
+  .avail.low { color:#c47d12; }
+  .avail.ok { color:#2e7d32; }
+  .avail a { color: inherit; text-decoration: underline; font-weight: 400; }
 
   /* ---- Settings modal ---- */
   .modal-bg {
@@ -397,9 +404,23 @@ function renderShows() {
   document.getElementById("other-divider").style.display = other.length ? "block":"none";
 }
 
+const RESV_URL = "https://www.comedycellar.com/reservations-newyork/";
 function card(s, isStandout) {
   const dateLabel = `${s.weekday||""} ${prettyShort(s.date)}`.trim().toUpperCase();
   const chips = (s.comedians||[]).map(c=>`<span class="chip2">${comicNameHtml(c.name)}</span>`).join("");
+  // Availability (from the live reservation system). Absent = not checked yet.
+  let avail = "", book;
+  const seats = s.seats_left;
+  if (s.sold_out === true) {
+    avail = `<div class="avail sold">Sold out as of last check</div>`;
+    book = `<a class="book soldout" href="${RESV_URL}" target="_blank" rel="noopener">Sold out — check other times →</a>`;
+  } else {
+    if (s.sold_out === false && typeof seats === "number" && seats > 0 && seats <= 10)
+      avail = `<div class="avail low">Almost sold out · ${seats} seat${seats===1?"":"s"} left</div>`;
+    else if (s.sold_out === false)
+      avail = `<div class="avail ok">Seats available</div>`;
+    book = `<a class="book" href="${RESV_URL}" target="_blank" rel="noopener">${isStandout?"Book →":"Book anyway →"}</a>`;
+  }
   return `<div class="card ${isStandout?"standout":""}">
     <div class="tag">${isStandout?"STANDOUT":"BELOW THRESHOLD"}</div>
     <div class="date">${dateLabel}</div>
@@ -410,7 +431,8 @@ function card(s, isStandout) {
     <div class="scores">
       ${box("A-LIST",s.drop_in)}${box("TASTE",s.taste)}${box("CROWD WORK",s.crowd_work)}
     </div>
-    <a class="book" href="https://www.comedycellar.com/reservation/" target="_blank" rel="noopener">${isStandout?"Book →":"Book anyway →"}</a>
+    ${avail}
+    ${book}
   </div>`;
 }
 function box(label,val){ return `<div class="score ${val>=4?"hot":""}"><div class="label">${label}</div><div class="val">${val||0}</div></div>`; }

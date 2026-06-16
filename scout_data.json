@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-06-16T13:43:46",
+  "generated_at": "2026-06-16T09:47:27",
   "available_dates": [
     "2026-06-01",
     "2026-06-02",
@@ -77,7 +77,9 @@
       "drop_in": 3,
       "taste": 4,
       "crowd_work": 5,
-      "blurb": "Dave Attell headlining means sharp, dirty crowd-work and possible big-name drop-ins testing material. Lynne Koplitz brings energy; worth the early slot."
+      "blurb": "Dave Attell headlining means sharp, dirty crowd-work and solid joke density\u2014he's a Cellar legend who works the room hard. Tuesday early show has decent drop-in odds but nothing screaming marquee surprise.",
+      "sold_out": true,
+      "seats_left": 0
     },
     {
       "id": "43913",
@@ -114,7 +116,9 @@
       "drop_in": 3,
       "taste": 3,
       "crowd_work": 4,
-      "blurb": "Ryan Hamilton is clean and joke-dense but leans storytelling over pure setup-punchline. Greer Barnes and Gregg Rogell bring solid crowd engagement\u2014decent Tuesday late show."
+      "blurb": "Ryan Hamilton's clean, crafted jokes align with your taste for tight writing, and Greer Barnes brings energy and interaction. Tuesday late show keeps drop-in potential alive but the bill feels workmanlike.",
+      "sold_out": true,
+      "seats_left": 0
     },
     {
       "id": "43915",
@@ -149,9 +153,11 @@
       "date": "2026-06-17",
       "weekday": "WED",
       "drop_in": 4,
-      "taste": 5,
-      "crowd_work": 5,
-      "blurb": "Colin Quinn is a Cellar legend with razor-sharp material and natural crowd banter. Wednesday early show raises drop-in odds; this bill matches your taste perfectly."
+      "taste": 4,
+      "crowd_work": 3,
+      "blurb": "Colin Quinn is a Cellar fixture and a huge name\u2014Wednesday early show is historically prime for A-list drop-ins. Pete Lee and the lineup lean joke-driven, matching your Morril/Normand sensibility well.",
+      "sold_out": true,
+      "seats_left": 0
     },
     {
       "id": "43916",
@@ -188,7 +194,9 @@
       "drop_in": 4,
       "taste": 3,
       "crowd_work": 3,
-      "blurb": "Ian Fidance and the SNL writer signal an alt-leaning lineup\u2014less traditional setup-punchline than your benchmarks. Wednesday late show still has drop-in potential, though."
+      "blurb": "Wednesday late show keeps the drop-in window wide open with Greer Barnes anchoring. Ian Fidance and the younger comics skew more alt/absurd than your benchmark taste, but it's a solid room.",
+      "sold_out": true,
+      "seats_left": 0
     }
   ]
 }

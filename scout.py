@@ -24,6 +24,10 @@ from html import unescape
 from pathlib import Path
 
 API_URL = "https://www.comedycellar.com/lineup/api/"
+# Reservation availability: the booking widget GETs this page for a short-lived
+# anti-abuse token, then POSTs {date} to the getShows endpoint.
+RESV_PAGE_URL = "https://www.comedycellar.com/reservations-newyork/"
+RESV_API_URL = "https://www.comedycellar.com/reservations/api/getShows"
 HERE = Path(__file__).resolve().parent
 OUT_PATH = HERE / "scout_data.json"
 CONFIG_PATH = HERE / "config.json"
@@ -176,6 +180,88 @@ def time_to_minutes(t: str) -> int:
     if ap == "am" and h == 12:
         h = 0
     return h * 60 + mn
+
+
+def hms_to_minutes(t: str) -> int:
+    """'19:30:00' -> 1170."""
+    m = re.match(r"(\d{1,2}):(\d{2})", t.strip())
+    return int(m.group(1)) * 60 + int(m.group(2)) if m else -1
+
+
+# ---------- Reservation availability (sold-out check) ------------------------
+
+def get_reservation_token() -> tuple[str, str]:
+    """Fetch the booking page and pull its short-lived (IP-bound) token.
+
+    Returns (cca, created) for the X-Code-Localize / X-Page-Creation headers
+    the getShows endpoint requires. Raises on failure.
+    """
+    req = urllib.request.Request(
+        RESV_PAGE_URL, headers={"User-Agent": "Mozilla/5.0 (comedy-cellar-scout)"})
+    with urllib.request.urlopen(req, timeout=20) as resp:
+        html = resp.read().decode("utf-8", "ignore")
+    cca = re.search(r'"cca":"([^"]+)"', html)
+    created = re.search(r'"created":(\d+)', html)
+    if not cca or not created:
+        raise RuntimeError("could not parse reservation token")
+    return cca.group(1), created.group(1)
+
+
+def fetch_availability(date_str: str, cca: str, created: str) -> dict[int, dict]:
+    """Return {minutes-since-midnight: {sold_out, seats_left}} for MacDougal
+    St. shows on `date_str`, per the live reservation system."""
+    body = json.dumps({"date": date_str}).encode()
+    req = urllib.request.Request(
+        RESV_API_URL, data=body,
+        headers={
+            "Content-Type": "application/json",
+            "User-Agent": "Mozilla/5.0 (comedy-cellar-scout)",
+            "X-Code-Localize": cca,
+            "X-Page-Creation": str(created),
+        },
+    )
+    with urllib.request.urlopen(req, timeout=20) as resp:
+        data = json.loads(resp.read())
+    out: dict[int, dict] = {}
+    for s in data.get("data", {}).get("showInfo", {}).get("shows", []):
+        # roomId 1 == "MacDougal St."; match by description to be safe.
+        if "MacDougal" not in (s.get("description") or ""):
+            continue
+        seats_left = s.get("max", 0) - s.get("totalGuests", 0)
+        # The widget's own rule: explicit flag OR no seats remaining.
+        sold_out = bool(s.get("soldout")) or seats_left < 1
+        out[hms_to_minutes(s.get("time", ""))] = {
+            "sold_out": sold_out,
+            "seats_left": max(seats_left, 0),
+        }
+    return out
+
+
+def annotate_availability(shows: list[dict]) -> None:
+    """Tag each show with sold_out / seats_left from the reservation system.
+    Best-effort: on any failure, shows are simply left unannotated."""
+    dates = sorted({s["date"] for s in shows})
+    if not dates:
+        return
+    try:
+        cca, created = get_reservation_token()
+    except Exception as e:
+        print(f"  ! availability check skipped (token: {e})", file=sys.stderr)
+        return
+    by_date: dict[str, dict[int, dict]] = {}
+    for d in dates:
+        try:
+            by_date[d] = fetch_availability(d, cca, created)
+            time.sleep(0.3)
+        except Exception as e:
+            print(f"  ! availability check failed for {d}: {e}", file=sys.stderr)
+    for s in shows:
+        avail = by_date.get(s["date"], {}).get(time_to_minutes(s["time"]))
+        if avail:
+            s["sold_out"] = avail["sold_out"]
+            s["seats_left"] = avail["seats_left"]
+    n_sold = sum(1 for s in shows if s.get("sold_out"))
+    print(f"Availability: checked {len(shows)} show(s), {n_sold} sold out.")
 
 
 # ---------- Claude scoring ----------------------------------------------------
@@ -488,6 +574,9 @@ def main():
         except Exception as e:
             print(f"  ! Could not merge prior data: {e}", file=sys.stderr)
     merged.sort(key=lambda s: (s["date"], time_to_minutes(s["time"])))
+
+    # Check live reservation availability so the viewer can flag sold-out shows.
+    annotate_availability(merged)
 
     # Resolve web-property links for every comic on the bills plus the taste
     # list, caching new ones. Skipped entirely in --no-ai mode.
