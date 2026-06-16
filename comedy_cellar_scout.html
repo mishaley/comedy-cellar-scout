@@ -500,7 +500,8 @@ document.getElementById("token-save").onclick = () => {
   const v = document.getElementById("token-input").value.trim();
   if (v) localStorage.setItem(LS_TOKEN, v); else localStorage.removeItem(LS_TOKEN);
   modal.classList.remove("open");
-  updateSaveStatusIdle();
+  // Push the current local state right away so existing edits sync immediately.
+  if (v) saveToCloud(); else updateSaveStatusIdle();
 };
 document.getElementById("token-clear").onclick = () => {
   localStorage.removeItem(LS_TOKEN);
