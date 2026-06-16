@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-06-16T13:56:03",
+  "generated_at": "2026-06-16T13:57:48",
   "available_dates": [
     "2026-06-16",
     "2026-06-17",
@@ -84,9 +84,9 @@
       "date": "2026-06-16",
       "weekday": "TUE",
       "drop_in": 3,
-      "taste": 3,
+      "taste": 2,
       "crowd_work": 4,
-      "blurb": "Dave Attell headlining brings solid name recognition and he's a crowd-work maestro, but the rest of the bill skews journeyman. Worth it if you want front-row banter with a legend.",
+      "blurb": "Dave Attell headlines a solid club lineup, but the bill skews toward veteran crowd-workers rather than the sharp, joke-dense style you favor. Tuesday means decent drop-in odds.",
       "sold_out": true,
       "seats_left": 0
     },
@@ -122,10 +122,10 @@
       ],
       "date": "2026-06-16",
       "weekday": "TUE",
-      "drop_in": 2,
+      "drop_in": 3,
       "taste": 2,
       "crowd_work": 3,
-      "blurb": "Ryan Hamilton is clean and competent but far from your joke-dense benchmark comics; Gregg Rogell and Greer Barnes are solid pros but this lineup lacks the density or edge you favor.",
+      "blurb": "Ryan Hamilton brings clean, polished material and Greer Barnes adds energy, but overall this leans middle-of-road compared to your benchmark comics. Standard Tuesday late show.",
       "sold_out": true,
       "seats_left": 0
     },
@@ -161,10 +161,10 @@
       ],
       "date": "2026-06-17",
       "weekday": "WED",
-      "drop_in": 3,
-      "taste": 4,
-      "crowd_work": 4,
-      "blurb": "Colin Quinn is a sharp, dense writer and a Cellar institution\u2014closest match to your taste on these bills. Worth showing up for his set alone.",
+      "drop_in": 4,
+      "taste": 3,
+      "crowd_work": 3,
+      "blurb": "Colin Quinn elevates this Wednesday show significantly\u2014his sharp, observational style and Cellar regular status make drop-ins more likely. Worth considering if you want a heavyweight on the bill.",
       "sold_out": true,
       "seats_left": 0
     },
@@ -200,10 +200,10 @@
       ],
       "date": "2026-06-17",
       "weekday": "WED",
-      "drop_in": 3,
-      "taste": 5,
-      "crowd_work": 4,
-      "blurb": "KC Shornima is on your benchmark list and Greer Barnes brings Chappelle Show pedigree; this is the strongest taste match across all four shows. Go to this one.",
+      "drop_in": 4,
+      "taste": 4,
+      "crowd_work": 3,
+      "blurb": "KC Shornima is on your benchmark list and Wednesday night historically pulls surprise heavyweights. Greer Barnes adds solid energy. This is your best bet of the four.",
       "sold_out": true,
       "seats_left": 0
     }
