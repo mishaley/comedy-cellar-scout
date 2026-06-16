@@ -205,10 +205,15 @@ full range — 3 is "fine, not special." Save 5s for real standouts.
    decamp to LA). The first two shows are slightly less drop-in-prone than the
    late show but still get them.
 
-2. TASTE (1-5): How well the bill matches the fan's taste. Benchmark comics:
-   {", ".join(taste)}.
-   Look for: sharp joke-writers, punchy club comics, modern New York alt-club
-   sensibility, observational and self-aware over preachy or political.
+2. TASTE (1-5): How well the bill matches the fan's taste. The fan's CURRENT
+   benchmark comics are: {", ".join(taste)}.
+   This list is edited over time, so DERIVE the fan's sensibility from these
+   specific comics rather than any fixed notion of taste. Figure out what they
+   have in common — joke-writing density, delivery, club vs. alt sensibility,
+   crowd-work tendency, subject matter, tone — and score how closely each bill's
+   comics share that profile. If the list shifts toward a different style, follow
+   it. A bill featuring a benchmark comic (or a close stylistic sibling) scores
+   high; a clear stylistic mismatch scores low.
 
 3. CROWD-WORK (1-5): Likelihood the comics on the bill engage with the front
    row. The fan likes to sit front-row and get pulled in. Some comics are
