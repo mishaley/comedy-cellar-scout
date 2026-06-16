@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-06-16T13:34:44",
+  "generated_at": "2026-06-16T13:36:31",
   "available_dates": [
     "2026-06-01",
     "2026-06-02",
@@ -77,7 +77,7 @@
       "drop_in": 3,
       "taste": 3,
       "crowd_work": 4,
-      "blurb": "Dave Attell headlines with his legendary crowd-work chops, making this a solid bet for front-row interaction. Solid Tuesday early show but not stacked enough for major drop-ins."
+      "blurb": "Dave Attell headlines with his legendary crowd work and dirty wit, plus Lynne Koplitz brings sharp club-comic energy. Solid Tuesday early show but not a drop-in magnet."
     },
     {
       "id": "43913",
@@ -114,7 +114,7 @@
       "drop_in": 2,
       "taste": 3,
       "crowd_work": 3,
-      "blurb": "Ryan Hamilton brings clean, tight joke-writing and Greer Barnes adds energy, but this Tuesday late show lacks the firepower to draw surprise guests. Workmanlike lineup."
+      "blurb": "Ryan Hamilton's clean, tight joke-writing anchors a workmanlike lineup with Gregg Rogell and Greer Barnes. Respectable second show but nothing screaming 'must-see.'"
     },
     {
       "id": "43915",
@@ -150,8 +150,8 @@
       "weekday": "WED",
       "drop_in": 4,
       "taste": 4,
-      "crowd_work": 3,
-      "blurb": "Colin Quinn elevates this Wednesday show significantly\u2014his presence alone makes drop-ins more likely, and Pete Lee delivers sharp, crowd-pleasing material. Worth the trip."
+      "crowd_work": 4,
+      "blurb": "Colin Quinn headlines\u2014NYC royalty and a master storyteller who loves riffing with the room. Wednesday early with this caliber brings real drop-in potential."
     },
     {
       "id": "43916",
@@ -187,8 +187,8 @@
       "weekday": "WED",
       "drop_in": 3,
       "taste": 3,
-      "crowd_work": 4,
-      "blurb": "Ian Fidance and Greer Barnes both work the crowd hard, making this fun for front-row seats. Decent Wednesday late show but taste skews more alt/chaotic than your preferred tight joke-writers."
+      "crowd_work": 3,
+      "blurb": "Ian Fidance and Greer Barnes add some edge to a mixed bag of newer faces and solid club pros. Fine late show but not particularly distinctive."
     }
   ]
 }
