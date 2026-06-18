@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-06-17T23:24:54+00:00",
+  "generated_at": "2026-06-18T02:01:29+00:00",
   "available_dates": [
     "2026-06-16",
     "2026-06-17",
@@ -50,84 +50,5 @@
     "Jerry Seinfeld",
     "Aziz Ansari"
   ],
-  "shows": [
-    {
-      "id": "43915",
-      "time": "7:30 pm",
-      "room": "MacDougal Street",
-      "comedians": [
-        {
-          "name": "James Mattern",
-          "credits": "KEVIN HART'S\"COMEDY IN COLOR, MADISON SQUARE GARDEN NETWORK'S \"PEOPLE TALKIN SPORTS\""
-        },
-        {
-          "name": "Pete Lee",
-          "credits": "COMEDY CENTRAL HALF HOUR, FROM THE DAVID LETTERMAN SHOW, NBC'S LAST COMIC STANDING, VH1'S BEST WEEK EVER"
-        },
-        {
-          "name": "Erin Jackson",
-          "credits": "FROM THE CONAN O\"BRIEN SHOW, LAST COMIC STANDING"
-        },
-        {
-          "name": "Colin Quinn",
-          "credits": "FROM THE MOVIE \"TRAINWRECK\", STAR OF ONE MAN SHOWS:\"RED STATE BLUE STATE\", \"UNCONSTITUTIONAL\", \"LONG STORY SHORT\" ON BROADWAY AND HBO, STAR OF COMEDY CENTRAL'S \"TOUGH CROWD\", SATURDAY NIGHT LIVE, NBC'S \"THE COLIN QUINN SHOW'."
-        },
-        {
-          "name": "Phil Hanley",
-          "credits": "COMEDY CENTRAL SPECIAL, THE LATE SHOW WITH SETH MEYERS, THE PETE HOLMES SHOW ON TBS, JOHN OLIVER'S NEW YORK STAND UP SHOW"
-        },
-        {
-          "name": "Lenny Marcus",
-          "credits": "FROM \"THE TONIGHT SHOW WITH JIMMY FALLON\",\"THE DAVID LETTERMAN SHOW\",  AS SEEN ON  ASPEN AND MONTREAL COMEDY FESTIVALS"
-        }
-      ],
-      "date": "2026-06-17",
-      "weekday": "WED",
-      "drop_in": 4,
-      "taste": 4,
-      "crowd_work": 5,
-      "blurb": "Colin Quinn anchors a strong Tuesday early show\u2014prime drop-in window, and Quinn's a joke-writer's comedian who works the room hard when he wants to.",
-      "sold_out": true,
-      "seats_left": 0
-    },
-    {
-      "id": "43916",
-      "time": "9:30 pm",
-      "room": "MacDougal Street",
-      "comedians": [
-        {
-          "name": "Eric Neumann",
-          "credits": "FROM THE TONIGHT SHOW STARRINGJIMMY FALLON, NETFLIX, COMEDY CENTRAL, IFC"
-        },
-        {
-          "name": "Ian Fidance",
-          "credits": "BEIN IAN PODCAST, NPR\u2019S THIS AMERICAN LIFE, NETFLIX, SOPRANOS PRIMA VOLTA"
-        },
-        {
-          "name": "Kc Shornima",
-          "credits": "WEEKEND UPDATE WRITER AT SATURDAY NIGHT LIVE, JUST FOR LAUGHS NEW FACES"
-        },
-        {
-          "name": "Blake Freeman",
-          "credits": "JFL NEW FACES INTERNATIONAL, MELBOURNE COMEDY FESTIVAL BEST NEWCOMER"
-        },
-        {
-          "name": "Jeff Bailey",
-          "credits": "FROM HBO,"
-        },
-        {
-          "name": "Greer Barnes",
-          "credits": "FROM HBO'S \"CRASHING\",  THE \"DAVE CHAPPELLE SHOW\", \"TOUGH CROWD\", \"FOR LOVE OF THE GAME\", AND \"THE DAVID LETTERMAN SHOW\"."
-        }
-      ],
-      "date": "2026-06-17",
-      "weekday": "WED",
-      "drop_in": 4,
-      "taste": 5,
-      "crowd_work": 4,
-      "blurb": "KC Shornima (your benchmark) plus Greer Barnes on a Tuesday late show\u2014high drop-in odds and directly in your taste lane, this one's worth the trip.",
-      "sold_out": true,
-      "seats_left": 0
-    }
-  ]
+  "shows": []
 }
