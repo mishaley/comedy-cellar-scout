@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-06-20T02:48:06+00:00",
+  "generated_at": "2026-06-20T06:58:10+00:00",
   "available_dates": [
     "2026-06-16",
     "2026-06-17",
@@ -87,8 +87,8 @@
       "taste": 2,
       "crowd_work": 3,
       "blurb": "Sunday early show with solid TV credits but no marquee names or obvious stylistic match to your benchmarks\u2014Chris Turner's physical comedy stands out, but this feels like a safe pass.",
-      "sold_out": false,
-      "seats_left": 3
+      "sold_out": true,
+      "seats_left": 0
     },
     {
       "id": "43970",
