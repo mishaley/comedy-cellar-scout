@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-06-21T22:44:43+00:00",
+  "generated_at": "2026-06-22T00:15:21+00:00",
   "available_dates": [
     "2026-06-16",
     "2026-06-17",
@@ -51,84 +51,6 @@
     "Aziz Ansari"
   ],
   "shows": [
-    {
-      "id": "43974",
-      "time": "1:30 pm",
-      "room": "MacDougal Street",
-      "comedians": [
-        {
-          "name": "Jon Laster",
-          "credits": "WINNER OF STAND UP NBC,"
-        },
-        {
-          "name": "Andre De Freitas",
-          "credits": "BBC"
-        },
-        {
-          "name": "Lynne Koplitz",
-          "credits": "HOUR SPECIAL ON NETFLIX, FROM JOAN & MELISSA RIVERS' REALITY SHOW: \"JOAN KNOWS BEST?\", THE IFC CHANNEL \"Z ROCK\", HOST OF WB'S \"LIFE & STYLE\", AND HOST \"CHANGE OF HEART\"."
-        },
-        {
-          "name": "Ethan Simmons-Patterson",
-          "credits": "BLUE WHALE COMEDY FESTIVAL, THE KNITTING FACTORY,"
-        },
-        {
-          "name": "Peter Revello",
-          "credits": "FROM THE TONIGHT SHOW, COMEDY CENTRAL"
-        },
-        {
-          "name": "Chris Turner",
-          "credits": "RUNNER UP ON AGT, \"MAD APPLE\" AT CIRQUE DE SOLEIL, THE LATE SHOW WITH STEPHEN COLBERT, BBC RADIO, EDINBURGH FESTIVAL"
-        }
-      ],
-      "date": "2026-06-21",
-      "weekday": "SUN",
-      "drop_in": 1,
-      "taste": 2,
-      "crowd_work": 3,
-      "blurb": "Sunday early show with solid TV credits but no marquee names or obvious stylistic match to your benchmarks\u2014Chris Turner's physical comedy stands out, but this feels like a safe pass.",
-      "sold_out": true,
-      "seats_left": 0
-    },
-    {
-      "id": "43970",
-      "time": "7:30 pm",
-      "room": "MacDougal Street",
-      "comedians": [
-        {
-          "name": "Rich Aronovitch",
-          "credits": "WTF with Marc Maron and Comic\u2019s Unleashed on CBS, ACCESS DAILY NBC, BEAT BOBBY FLAY FOOD NETWORK"
-        },
-        {
-          "name": "Usama Siddiquee",
-          "credits": "FROM KEVIN HART'S NETFLIX COMEDY COMPETITION, BET'S 50 CENTRAL, NBC, BUZZFEED"
-        },
-        {
-          "name": "Lynne Koplitz",
-          "credits": "HOUR SPECIAL ON NETFLIX, FROM JOAN & MELISSA RIVERS' REALITY SHOW: \"JOAN KNOWS BEST?\", THE IFC CHANNEL \"Z ROCK\", HOST OF WB'S \"LIFE & STYLE\", AND HOST \"CHANGE OF HEART\"."
-        },
-        {
-          "name": "Andre De Freitas",
-          "credits": "BBC"
-        },
-        {
-          "name": "Peter Revello",
-          "credits": "FROM THE TONIGHT SHOW, COMEDY CENTRAL"
-        },
-        {
-          "name": "Jeff Bailey",
-          "credits": "FROM HBO,"
-        }
-      ],
-      "date": "2026-06-21",
-      "weekday": "SUN",
-      "drop_in": 2,
-      "taste": 2,
-      "crowd_work": 3,
-      "blurb": "Sunday evening mirrors the early show with overlapping comics; Usama Siddiquee adds energy but nothing here screams must-see for your taste profile.",
-      "sold_out": true,
-      "seats_left": 0
-    },
     {
       "id": "43952",
       "time": "7:30 pm",
