@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-06-24T21:54:35+00:00",
+  "generated_at": "2026-06-24T23:07:28+00:00",
   "available_dates": [
     "2026-06-16",
     "2026-06-17",
@@ -239,7 +239,7 @@
       "crowd_work": 4,
       "blurb": "Dan Soder and Nathan Macintosh anchor a solid Monday bill with strong joke-writing chops. Early week raises drop-in potential, especially with this caliber already booked.",
       "sold_out": false,
-      "seats_left": 55
+      "seats_left": 53
     },
     {
       "id": "44072",
@@ -356,7 +356,7 @@
       "crowd_work": 3,
       "blurb": "Brett Goldstein (Ted Lasso) and Keith Robinson headline another Wednesday bill. The marquee name plus mid-week timing makes this a strong bet for surprise guests testing new material.",
       "sold_out": false,
-      "seats_left": 52
+      "seats_left": 31
     }
   ]
 }
