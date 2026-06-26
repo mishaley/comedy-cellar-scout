@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-06-26T16:20:31+00:00",
+  "generated_at": "2026-06-26T18:10:55+00:00",
   "available_dates": [
     "2026-06-16",
     "2026-06-17",
@@ -204,7 +204,7 @@
       "crowd_work": 3,
       "blurb": "Philipp Kostelecky returns on a Monday late show\u2014historically prime for surprise guests. Ryan Hamilton brings clean, crafted material that matches your taste for tight joke-writing.",
       "sold_out": false,
-      "seats_left": 30
+      "seats_left": 28
     },
     {
       "id": "44080",
@@ -243,7 +243,7 @@
       "crowd_work": 4,
       "blurb": "Colin Quinn and Dan Soder on a Wednesday\u2014this is exactly the early-week setup where legendary all-star nights happen. Quinn's a Cellar institution and Wednesday is peak drop-in night.",
       "sold_out": false,
-      "seats_left": 19
+      "seats_left": 14
     },
     {
       "id": "44081",
